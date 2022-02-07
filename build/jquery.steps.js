@@ -1475,6 +1475,24 @@ $.fn.steps.skip = function (count)
 };
 
 /**
+ * Resets the form back to starting state
+ * From https://stackoverflow.com/a/54807691
+ * @method reset
+ */
+$.fn.steps.reset = function () {
+
+    var wizard = this,
+    options = getOptions(this),
+    state = getState(this);
+    goToStep(wizard, options, state, 0);
+  
+    for (i = 1; i < state.stepCount; i++) {
+      var stepAnchor = getStepAnchor(wizard, i);
+      stepAnchor.parent().removeClass("done")._enableAria(false);
+    }
+  };
+
+/**
  * An enum represents the different content types of a step and their loading mechanisms.
  *
  * @class contentMode
